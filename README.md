@@ -397,7 +397,7 @@ Las funciones además, pueden ser **closures** de otras funciones, es decir, que
 
 ### Variables
 
-Para declarar las variables se utiliza la palabra reservada `var`, la cual, declara puede declarar una o más variables variables, y se debe usa la misma sintáxis de **izquierda-a-derecha**, es decir, poner el tipo de variable al final, y si son múltiples variables del mismo tipo, solo se debe poner al final una vez.
+Para declarar las variables se utiliza la palabra reservada `var`, la cual, puede declarar una o más variables, y se debe usa la misma sintáxis de **izquierda-a-derecha**, es decir, poner el tipo de variable al final, y si son múltiples variables del mismo tipo, solo se debe poner al final una vez.
 
 La declaración con `var` puede ser usada en varios niveles (scope), ya sea a nivel de paquete o de función, y puede incluir inicializadores (valores iniciales), uno por variable. Cuando los inicializadores se presentan en la declaración de variables, el especificador del tipo de la variable puede ser omitido, ya que tomará el valor de ese inicializador.
 
@@ -696,7 +696,7 @@ Es importante mencionar que toda interfaz almacena información sobre el objeto 
 
 Las interfaces son implementadas cuando un tipo implementa los métodos de dicha interfaz, por lo que no se necesitan palabras clave o declaraciones explícitas. Además, cuando se llama a un método implementado por la interfaz, se ejecuta el método que tiene nombre específico y el tipo específico, por lo que una interfaz guarda la información del tipo que implementan sus métodos.
 
-Un objeto de tipo interfaz está vacío `nil` si no tiene nada de información en su tupla `(valor, tipo)`, y llamar a algún método de esta interfaz causa un pánico en el programa, ya qu Go no sabe qué método invocar.
+Un objeto de tipo interfaz está vacío `nil` si no tiene nada de información en su tupla `(valor, tipo)`, y llamar a algún método de esta interfaz causa un pánico en el programa, ya que Go no sabe qué método invocar.
 
 Existen también las interfaces vacías que no implementan ningún método declaradas con el tipo `any`, son conocidas como **interfaces vacías** y pueden guardar valores de cualquier tipo.
 
@@ -902,7 +902,7 @@ Es imporante reconocer que un canal, con la creación por defecto (sin buffer), 
 
 ### Canales con buffer
 
-A los canales se les puede asignar un **buffer**, por lo que pueden ser capaces de realmente almacenar cierta cantidad de elementos. Como segundo elemento en la función `make` se puede especificar el tamaño del canal al crearlo.
+A los canales se les puede asignar un **buffer**, por lo que pueden ser capaces de realmente almacenar cierta cantidad de elementos. Como segundo elemento en la función `make` se puede especificar el tamaño del buffer al crear el canal.
 - Ejemplo:
     ```Go
     canal := make(chan int, 100)  // Canal con un buffer máximo 100 elementos
@@ -1072,13 +1072,13 @@ Los tokens son básicamente todos los elementos por defecto de todo el vocabular
 
 ### Punto y coma
 
-En la sintáxis formal y completa de Go sí se usa el punto y coma `;` como finalizador de varias sentencias y producciones. Sin embargo, la mayoría de programas peden omitir su uso siempre y cuando se sigan las siguientes dos reglas:
+En la sintáxis formal y completa de Go sí se usa el punto y coma `;` como finalizador de varias sentencias y producciones. Sin embargo, la mayoría de programas pueden omitir su uso siempre y cuando se sigan las siguientes dos reglas:
 1. Cuando la sentencia o producción es dividida en múltiples tokens, un punto y coma es automáticamente insertado inmediatamente después del último token
 2. Para permitir producciones complejas que ocupen una sola línea, el punto y coma puede ser omitido después de los signos de agrupación terminantes `)` o `}`
 
 ### Identificadores
 
-Los identificadores nombran a las entidades del programa, como variables, funciones, tipos, etc. Estos son una secuencia de una o más letras y posibles dígitos, donde el primer caracter del identificador siempre debe ser una letra. Por lo que siempre se debe considerar al crear los si estos deben ser exportados o no.
+Los identificadores nombran a las entidades del programa, como variables, funciones, tipos, etc. Estos son una secuencia de una o más letras y posibles dígitos, donde el primer caracter del identificador siempre debe ser una letra. Por lo que siempre se debe considerar al crearlos si estos deben ser exportados o no.
 
 ### Palabras reservadas
 
@@ -1144,7 +1144,6 @@ Existen caracteres o secuencias de caracteres que representan operadores y signo
 - `>`
 - `=`
 - `!`
-- `~`
 - `!=`
 - `<=`
 - `>=`
@@ -1199,11 +1198,11 @@ En cuanto a los variables estructuradas (array, slice, struct), estas tienen ele
 
 La mayoría de variables tienen un tipo estático, es decir, el tipo que se les asigna en su declaración o de forma implícita. Pero, otras variables de tipo `interface`, pueden tener un tipo dinámico, que es el tipo del objeto que implementa dicha interfaz.
 
-Todas las variables tienen un **valor cero**, el cual es asignado automáticamente si ningún valor (inicializador) es asignado a una variable ya declarada. 
+Todas las variables tienen un **valor cero**, el cual es asignado automáticamente si ningún valor (inicializador) es asignado en la declaración de la variable.
 
 ## Tipos
 
-Un tipo determina el conjunto de valores y operaciones que están disponibles para las variables de dicho tipo. Los tipos en Go pueden ser especificados mediante su nombre (tipos nombrados) o mediante su estructura literal (tipos sin nombre).
+Un tipo determina el conjunto de valores y operaciones que están disponibles para las variables de dicho tipo. Los tipos en Go pueden ser especificados mediante su nombre o mediante su estructura literal.
 
 Los tipos se clasifican en:
 * **Predeclarados:** Tipos básicos como `int`, `string`, `bool`, etc., que ya vienen incluidos en el lenguaje
@@ -1274,7 +1273,7 @@ Un slice describe un segmento contiguo de un arreglo subyacente y provee acceso 
 Los slices contienen tres características fundamentales:
 - **Arreglo subyacente:** Un puntero que contiene la referencia al primer elemento del segmento del arreglo subyacente al cual tienen acceso
 - **Longitud:** El número de elementos del propio slice, y nunca es negativo
-- **Capacidad:** El número máximo de elementos del segmento al cual el slice puede acceder del arreglo subyacente
+- **Capacidad:** El número máximo de elementos que puede contener el arreglo subyacente, y nunca es negativo
 
 Debido a que los slices trabajan con arreglos subyacentes, múltiples slices pueden usar el mismo arreglo pero diferentes segmentos de él. Por lo tanto, varios slices pueden representar el mismo arreglo; pero varios arreglos no pueden representar el mismo slice.
 
@@ -1308,7 +1307,7 @@ Existen también funciones anónimas y funciones variadicas que reciben una cant
 
 ### Tipos interfaz
 
-Una `interface` establece comportamiento en lugar de una estructura, por lo que actúa como un contrato que establece comportamientos que otro tipo debe implementar para poder ser implementar la propia interfaz y ser considerado del mismo tipo.
+Una `interface` establece comportamiento en lugar de una estructura, por lo que actúa como un contrato que establece comportamientos que otro tipo debe implementar para poder ser la propia interfaz y ser considerado del mismo tipo.
 
 Una variable de tipo interfaz puede almacenar un valor de cualquier tipo que implemente dicha interfaz. Dicho tipo se considerará del tipo interfaz. Por otro lado, el valor cero de un tipo interfaz es `nil`.
 
@@ -1330,7 +1329,7 @@ Las interfaces embebidas facilitan la composición y reutilización de comportam
 
 #### Interfaces genéricas
 
-Estas son las formas más generales de una interfaz, donde una interfaz puede contener elementos de tipo arbitrario `T` (genérico) o tipos `~T` que contengan un tipo `T` subyacente. Junto con métodos con tipos de parámetro arbitrario, permiten definición genérica y reutilización de código para múltiples tipos.
+Estas son las formas más generales de una interfaz, donde una interfaz puede contener elementos de tipo arbitrario `T` (genérico) o tipos `~T` que contengan un tipo `T` subyacente. Junto con métodos y tipos de parámetro arbitrario, es posible la definición genérica y reutilización de código para múltiples tipos.
 
 Las interfaces más genéricas pueden especificar diferentes restricciones de tipo usando:
 - **Tipos exactos:** `T` acepta solo el tipo `T`
@@ -1348,7 +1347,7 @@ Las interfaces más genéricas pueden especificar diferentes restricciones de ti
 
 Un `map` es un grupo de elementos en la forma **llave-valor** sin un orden específico. Todos los **valores** deben ser de un mismo tipo, y están indexados por sus **llaves** correspondientes, que también deben ser de un mismo tipo. Formando así un conjunto de elementos **llave-valor**.
 
-El valor de un mapa sin inicializar es `nil`, y no es posible agregar contenido. Pero, un mapa sin inicialiazar es diferente a un mapa vacío, pues en un mapa vacío sí es posible agregar contenido nuevo. Por otro lado, el tipo de la llave debe poder ser comparable y tener bien definidos los operadores de comparación `==` y `!=`, por lo que las llaves no pueden ser de tipo función, mapa, slice, etc.
+El valor de un mapa sin inicializar es `nil`, y no es posible agregar contenido. Por lo tanto, un mapa sin inicialiazar es diferente a un mapa vacío, pues en un mapa vacío sí es posible agregar contenido nuevo. Por otro lado, el tipo de la llave debe poder ser comparable y tener bien definidos los operadores de comparación `==` y `!=`, por lo que las llaves no pueden ser de tipo función, mapa, slice, etc.
 
 El número de elementos de un mapa es conocido como su **longitud** y puede ser obtenida usando la función `len()`. Además, un mapa puede ser creado con la función `make()` que recibe el mapa a crear y su capacidad inicial opcional, aunque dicha capacidad no es fija y no limita al propio mapa.
 
@@ -1360,7 +1359,7 @@ Para trabajar con los canales se debe utilizar el operador `<-`, pues este espec
 
 Los canales se pueden crear usando la función `make()`, donde se recibe el canal a crear y opcionalmente la capacidad (buffer) del canal. Si no se especifica la capacidad o es igual a 0, se crea un canal sin capacidad (unbuffered). También, se puede usar la función `close()` para cerrar un canal. Un canal puede ser usado en múltiples funciones concurrentes sin necesidad de sincronización, pues la propia naturaleza de los canales permite este comportamiento.
 
-Cabe mencionar que un **canal sin buffer** solo puede ser usado cuando ambas partes de la comunicación estén listas, es decir, cuando existe un emisor y un receptor. Mientras que un **canal con buffer** puede estar constantemente recibiendo y enviando valores, siempre y cuando no esté lleno o vacío, respectivamente. Además, funcionan usando el concepto FIFO (First-In, First-Out).
+Cabe mencionar que un **canal sin buffer** solo puede ser usado cuando ambas partes de la comunicación estén listas, es decir, cuando existe un emisor y un receptor. Mientras que un **canal con buffer** puede estar constantemente recibiendo y enviando valores, siempre y cuando no esté vacío o lleno, respectivamente. Además, funcionan usando el concepto FIFO (First-In, First-Out).
 
 ## Propiedades de tipos y valores
 
@@ -1410,7 +1409,7 @@ Para tipos no-definidos (tipos literales), dos tipos son idénticos si sus estru
 - **Tipos mapa:** Idénticos si los tipos de llaves y valores son idénticos
 - **Tipos canal:** Idénticos si el tipo de elementos es idéntico y tienen la misma direccionalidad
 
-Que dos tipos sean idénticos quiere decir que esos tipos son iguales en todos sus aspectos individuales relevantes para el compilador. Entonces, la -*identidad del tipo** implica que dichos tipos puedan ser tratados de la misma forma y no necesiten conversiones explícitas.
+Que dos tipos sean idénticos quiere decir que esos tipos son iguales en todos sus aspectos individuales relevantes para el compilador. Entonces, la **identidad del tipo** implica que dichos tipos puedan ser tratados de la misma forma y no necesiten conversiones explícitas.
 
 ### Asignabilidad
 
@@ -1431,7 +1430,7 @@ Esta propiedad se aplica específicamente a constantes y determina si una consta
 Una constante `x` es representable por tipo un tipo `T` cuando se cumple alguna de estas condiciones:
 - `x` está dentro del rango de valores que `T` puede representar
 - `T` es un tipo de punto-flotante y `x` puede ser redondeado a la precisión de `T` sin desbordamiento
-- `T` es un tipo complejo y tanto la parte real como imaginaria de `x` son individualmente representables por el tipo de subyacente de `T` que representa ambas partes
+- `T` es un tipo complejo y tanto la parte real como imaginaria de `x` son individualmente representables por el tipo subyacente de `T` que representa ambas partes
 
 Básicamente esta propiedad aplica para las constantes sin tipo que determina si dicha constante puede ser asignada a una variable de cierto tipo sin causar errores de compilación o pérdida de información crítica.
 
@@ -1442,7 +1441,7 @@ El conjunto de métodos de un tipo determina qué métodos pueden ser llamados d
 **Reglas fundamentales:**
 - **Para un tipo definido T:** El conjunto de métodos incluye todos los métodos declarados con argumento receiver de valor `(t T)`
 - **Para un tipo puntero \*T:** El conjunto de métodos incluye todos los métodos declarados con argumento receiver de valor `(t T)` y receiver de pointer `(t \*T)`
-- **Para un tipo interfaz:** El conjunto de métodos de un tipo interfaz es la intersección del conjunto de métodos de cada elementos de la interfaz, es decir, solo los métodos que todos los elementos tienen
+- **Para un tipo interfaz:** El conjunto de métodos de un tipo interfaz es la intersección del conjunto de métodos de cada elemento de la propia interfaz, es decir, solo los métodos que todos los elementos tienen
 - **Para tipos embebidos en structs:** Los métodos del tipo embedded se promueven al conjunto de métodos del struct contenedor
 
 Un tipo `T` implementa una interfaz `I` solo si el conjunto de métodos de `T` contiene todos los métodos requeridos por `I`. Además, todos los tipos tienen conjunto de métodos (aunque puede estar vacío), y todos los métodos deben tener un nombre único y no estar en blanco.
@@ -1471,8 +1470,8 @@ El identificador en blanco `_` puede usarse como cualquier otro identificador en
 2. **Constantes, tipos, variables, o funciones (pero no métodos)**: Alcanzan el bloque de paquete
 3. **Nombres de paquetes importados:** Alcanzan el bloque del archivo que contiene la declaración de import
 4. **Parámetro receiver, parámetros de función, o variables de resultado:** Alcanzan el bloque de función donde están declarados
-5. **tipos de parámetro de funciones o parámetros receivers:** Su alcance inicia después del nombre de la función y termina al final del cuerpo de la función donde están declarados
-6. **tipos de parámetro:** Su alcance inicia después del nombre del tipo y termina al final de la declaración
+5. **Tipos de parámetro de funciones o parámetros receivers:** Su alcance inicia después del nombre de la función y termina al final del cuerpo de la función donde están declarados
+6. **Tipos de parámetro:** Su alcance inicia después del nombre del tipo y termina al final de la declaración
 7. **Constantes o variables declarados dentro funciones:** Su alcance inicia al final de la declaración y termina al final del bloque contenedor más interno
 8. **Tipos declarados dentro de funciones:** Su alcance inicia al final de la declaración y termina al final del bloque contenedor más interno
 
@@ -1495,7 +1494,7 @@ Hay un total de 44 identificadores predeclarados en el bloque universal de Go. E
 **Tipos:**
 - `any`
 - `bool`
-- `byte
+- `byte`
 - `comparable`
 - `complex64`
 - `complex128`
@@ -1514,7 +1513,7 @@ Hay un total de 44 identificadores predeclarados en el bloque universal de Go. E
 - `uint16`
 - `uint32`
 - `uint64`
-- ``uintptr`
+- `uintptr`
 
 **Constantes:**
 - `true`
@@ -1632,7 +1631,7 @@ La declaración de variables con la palabra reservada `var` puede crear una o m�
 
 ### Declaración corta de variables
 
-La declaración corta usa el operador `:=` sin necesidad de `var` ni tipo explícito. Solo está permitida dentro de funciones (no a nivel de paquete) y siempre requiere un inicializador. En asignaciones múltiples, puede redeclarar variables existentes siempre que al menos una variable sea nueva en ese bloque.
+La declaración corta usa el operador `:=` sin necesidad de `var` ni tipo explícito. Solo está permitida dentro de funciones (no a nivel de paquete) y siempre requiere un inicializador. En asignaciones múltiples, puede reasignar variables existentes siempre y cuando que al menos una nueva variable declarada.
 
 ### Declaración de funciones
 
@@ -1656,17 +1655,17 @@ El identificador en blanco `_` solo puede usarse en el lado izquierdo de asignac
 
 ### Identificadores calificados
 
-Un identificador calificado accede a identificadores exportados de otros paquetes usando la sintaxis `paquete.Identificador`. Tanto el nombre del paquete como el identificador deben ser diferentes al identificador en blanco, y el identificador debe estar exportado (empezar con mayúscula) para ser accesible desde el paquete importador.
+Un identificador calificado accede a identificadores exportados de otros paquetes usando la sintaxis `paquete.Identificador`. Tanto el nombre del paquete como el identificador deben ser diferentes al identificador en blanco, y el identificador debe estar exportado (empezar con mayúscula) para ser accesible desde el paquete importado.
 
 ### Literales compuestos
 
-Los literales compuestos construyen valores para tipos compuestos (structs, arreglos, slices, mapas) usando la sintaxis `Type{elements}`. Cada evaluación crea una nueva instancia.
+Los literales compuestos construyen valores para tipos compuestos (structs, arreglos, slices, mapas) usando la sintaxis `Tipo{elementos}`. Cada evaluación crea una nueva instancia.
 
-La estructura de los elementos varía según el tipo: los structs pueden usar nombres de campos, los arreglos pueden especificar índices, etc. Para tipo de parámetros, todos los tipos en su conjunto de tipos deben ser válidos para literales compuestos para poder usarlos.
+La estructura de los elementos varía según el tipo: los structs pueden usar nombres de campos, los arreglos pueden especificar índices, etc. Para tipos de parámetro, todos los tipos en su conjunto de tipos deben ser válidos para literales compuestos para poder usarlos.
 
 ### Funciones literales
 
-Una función literal representa una función anónima que no puede declarar tipos de parámetros. Puede ser asignada a variables o invocada directamente. Este tipo de funciones son son closures, lo que significa que pueden capturar y usar variables de alcance externo a donde se definen. Estas variables capturadas son compartidas entre la función externa y el closure, manteniéndose vivas mientras el closure exista.
+Una función literal representa una función anónima que no puede declarar tipos de parámetros. Puede ser asignada a variables o invocada directamente. Este tipo de funciones son closures, lo que significa que pueden capturar y usar variables de alcance externo a donde se definen. Estas variables capturadas son compartidas entre la función externa y el closure, manteniéndose vivas mientras el closure exista.
 
 ### Expresiones primarias
 
@@ -1674,15 +1673,15 @@ Las expresiones primarias son los operandos fundamentales para construir expresi
 
 ### Selectores
 
-Un selector (`expresion.selector`) accede a un campo o método de un valor. La expresión debe ser primaria y no puede ser un nombre de paquete. Los selectores funcionan automáticamente tanto con valores directos como con punteros, pues Go maneja implícitamente la dereferenciación cuando es necesario.
+Un selector (`expresion.Selector`) accede a un miembro o método de un valor. La expresión debe ser primaria y no puede ser un nombre de paquete. Los selectores funcionan automáticamente tanto con valores directos como con punteros, pues Go maneja implícitamente la des-referenciación cuando es necesario.
 
 ### Expresiones de métodos
 
 Una expresión de método es una forma de referenciar un método de un tipo como si fuera una función regular, donde el receiver se convierte en el primer parámetro explícito de la función.
 
-Cuando se define un método con la sintaxis `func (t T) Metodo(args) TipoRetorno { ... }`, se puede crear una expresión de método usando `T.Metodo`. Esta expresión resulta en una función que tiene la firma `func(t T, args) TipoRetorno`, donde el receiver original ahora es el primer parámetro explícito.
+Cuando se define un método con la sintaxis `func (t T) Metodo(args) TipoRetorno { ... }`, se puede crear una expresión de método usando `T.Metodo`. Esta expresión resulta en una función que tiene la firma `func(t T, args) TipoRetorno { ... }`, donde el receiver original ahora es el primer parámetro explícito.
 
-Las expresiones de métodos se diferencían de los valores de métodos. Una expresión de método como `T.Metodo` requiere que se pase la instancia como primer argumento cuando es llamada. Por el otro lado, un valor de método como `instancia.Metodo` ya tiene la instancia *capturada* y no necesita que se le pase explícitamente.
+Las expresiones de métodos se diferencían de los valores de métodos. Una expresión de método como `T.Metodo` requiere que se pase una instancia del tipo `T` como primer argumento cuando es llamada. Por otro lado, un valor de método como `instancia.Metodo` ya tiene la instancia *capturada* y no necesita que se le pase explícitamente.
 
 En cuanto a las reglas para crear expresiones de métodos, solo se pueden crear desde el tipo que está en el conjunto de métodos correspondiente. Los métodos con receivers por valor `(t T)` permiten la sintaxis `T.Metodo`. Sin embargo, los métodos con receivers por puntero `(t *T)` únicamente permiten `(*T).Method`, ya que estos métodos no forman parte del conjunto de métodos del tipo valor.
 
@@ -1696,16 +1695,16 @@ A diferencia de las expresiones de método, los valores de método pueden crears
 
 ### Expresiones de índice
 
-Una expresión primaria en la forma `a[x]` representa un elemento de un arreglo, slice, string o mapa donde `x` es su índice o posición (para arreglos, slices y strings), o clave (para mapas).
+Una expresión primaria en la forma `a[x]` representa un elemento de un arreglo, slice, string o mapa donde `x` es su índice (para arreglos, slices y strings), o clave (para mapas).
 
-**Para arrays, slices y strings**  
-El índice debe ser una constante sin tipo o un valor de tipo `int`. Debe ser un número no negativo representable por el tipo `int`, y debe estar en el rango `0 <= índice < len(objeto)`. Una constante sin tipo usada como índice toma automáticamente el tipo `int`. Si el índice está fuera del rango permitido, se produce un panic en tiempo de ejecución.
+**Para arreglos, slices y strings**  
+El índice debe ser una constante sin tipo o un valor de tipo `int`. Debe ser un número no negativo representable por el tipo `int`, y debe estar en el rango `0 <= índice < len(objeto)`. Una constante sin tipo usada como índice toma automáticamente el tipo `int`. Si el índice está fuera del rango permitido, se produce un pánico en tiempo de ejecución.
 - **Arreglos:** `a[x]` representa el elemento en el índice `x` del arreglo `a`. El comportamiento es el mismo tanto si se usa un arreglo directamente como un puntero a un arreglo
 - **Slices:** `a[x]` representa el elemento en el índice `x` del slice `a`
-- **Strings:** `a[x]` representa el byte en el índice `x` del string `a`. Para strings, el índice debe ser una constante entera, y el resultado no puede ser asignado (los strings son inmutables)
+- **Strings:** `a[x]` representa el byte en el índice `x` del string `a`. Para strings, el índice debe ser una constante entera, y al resultado no se le puede asignar otro valor (los strings son inmutables)
 
 **Para mapas**  
-El índice `x` debe ser asignable al tipo de las claves del mapa. Si el mapa contiene `x` como clave, se devuelve el valor correspondiente. Si el mapa no contiene la clave, se devuelve el valor cero del tipo de valores del mapa.
+La clave `x` debe ser asignable al tipo de las claves del mapa. Si el mapa contiene `x` como clave, se devuelve el valor correspondiente. Si el mapa no contiene la clave, se devuelve el valor cero del tipo de valor del mapa.
 
 **Para tipos de parámetro**  
 La expresión de índice `a[x]` debe ser válida para todos los tipos del conjunto de tipos del tipo de parámetro. Esto significa que todos los tipos en el conjunto de tipos deben soportar la operación de indexado con el tipo de `x`.
@@ -1720,9 +1719,9 @@ Para tipos de parámetro, a menos que todo su conjunto de tipos contenga únicam
 
 #### Expresiones de slice simples
 
-Este tipo de expresiones utilizan la sintaxis `a[bajo:alto]` para especificar un rango de elementos. El índice inferior (`bajo`) es inclusivo, mientras que el índice superior (`alto`) es exclusivo.
+Este tipo de expresiones utilizan la sintaxis `a[bajo : alto]` para especificar un rango de elementos. El índice inferior (`bajo`) es inclusivo, mientras que el índice superior (`alto`) es exclusivo.
 
-Cualquiera de los dos índices puede ser omitido por conveniencia. Si se omite el índice inferior, toma el valor `0`. Si se omite el índice superior, toma el valor de la longitud del objeto (`len(objeto)`).
+Cualquiera de los dos índices puede ser omitido por conveniencia. Si se omite el índice inferior, toma el valor `0`. Si se omite el índice superior, toma el valor de la longitud del objeto (`len(a)`).
 
 Los índices deben ser enteros no negativos. Para strings y arreglos, deben cumplir `0 <= bajo <= alto <= len(objeto)`. Para slices, el índice superior puede extenderse hasta la capacidad del slice: `0 <= bajo <= alto <= cap(slice)`.
 
@@ -1730,7 +1729,7 @@ Si la expresión de slice es válida pero el objeto del cual se obtiene el slice
 
 #### Expresiones de slice completas
 
-Las expresiones de slice completas utilizan la sintaxis `a[bajo:alto:maximo]` y están disponibles para arreglos, punteros a un arreglo y slices, pero no para strings. El tercer índice (`max`) controla la capacidad del slice resultante.
+Las expresiones de slice completas utilizan la sintaxis `a[bajo : alto : maximo]` y están disponibles para arreglos, punteros a un arreglo y slices, pero no para strings. El tercer índice (`maximo`) controla la capacidad del slice resultante.
 
 Los índices `bajo` y `alto` funcionan igual que en las expresiones de slice simples. El índice `maximo` establece que la capacidad del slice resultante será `maximo - bajo`. Solo el primer índice (`bajo`) puede ser omitido, tomando el valor `0`.
 
@@ -1790,7 +1789,7 @@ Cada par de tipos correspondientes forma una **ecuación de tipo** que contiene 
 
 La inferencia de tipos prioriza la información obtenida directamente de los operandos antes que los valores específicos, y ocurre en dos fases:
 1. Las ecuaciones de tipo se resuelven para los parámetros de tipo limitantes usando unificación de tipos. Este proceso identifica qué tipos deben tener los tipos de parámetros basándose en los argumentos proporcionados directamente. Si esta fase falla, la inferencia completa falla
-2. Para cada tipo de parámetro limitante que no pudo ser inferido en la primera fase, Go examina información adicional como tipos de retorno de funciones pasadas como argumentos, signatures completas de funciones, y restricciones que puedan proporcionar pistas adicionales
+2. Para cada tipo de parámetro limitante que no pudo ser inferido en la primera fase, Go examina información adicional como tipos de retorno de funciones pasadas como argumentos, firmas completas de funciones, y restricciones que puedan proporcionar pistas adicionales
 
 Si después de ambas fases no todos los tipos de parámetros no pueden inferirse, la inferencia falla y deben proporcionarse explícitamente.
 
@@ -1798,7 +1797,7 @@ Si después de ambas fases no todos los tipos de parámetros no pueden inferirse
 
 El proceso de inferencia de tipos resuelve ecuaciones de tipo mediante la unificación de tipos. Este proceso compara recursivamente los dos lados de una ecuación (LHS y RHS), donde uno o ambos tipos pueden ser o contener parámetros de tipo limitantes, y busca los tipos de argumentos correspondientes para hacer que ambos lados de la ecuación sean iguales.
 
-Para este proceso, Go mantiene un mapa que relaciona tipos de parámetros limitantes con sus tipos de argumentos inferidos. Este mapa se actualiza constantemente durante la unificación. Inicialmente, los tipos de parámetros limitantes son conocidos pero sus tipos no, por lo que el mapa está vacío. Durante el proceso, cuando se infiere un nuevo type argument, la relación correspondiente se agrega o actualiza en el mapa.
+Para este proceso, Go mantiene un mapa que relaciona tipos de parámetros limitantes con sus tipos de argumentos inferidos. Este mapa se actualiza constantemente durante la unificación. Inicialmente, los tipos de parámetros limitantes son conocidos pero sus tipos no, por lo que el mapa está vacío. Durante el proceso, cuando se infiere un nuevo tipo de argumento, la relación correspondiente se agrega o actualiza en el mapa.
 
 La unificación utiliza una combinación de unificación exacta y unificación relajada, dependiendo de si ambos tipos deben ser idénticos o solo estructuralmente equivalentes.
 
@@ -2015,7 +2014,7 @@ Una sentencia de terminación interrumpe el flujo de control regular dentro de u
 
 Las siguientes son las sentencias de terminación en Go:
 1. La sentencia `return` o `goto`
-2. Llamar a la función integrada `panic()`
+2. Llamar a la función integrada `panic`
 3. Un bloque en que su lista de sentencias termina con una sentencia de terminación
 4. La sentencia `if` en la que:
     - la rama del `else` está presente
@@ -2103,15 +2102,15 @@ En un switch de expresión, la expresión es evaluada primero; luego, las expres
 
 Si la expresión del switch evalúa a una constante sin tipo, primero se convierte a su tipo predeterminado. El valor `nil` no puede ser usado como expresión del switch. El tipo de la expresión del switch debe ser comparable.
 
-La expresión del switch es tratada como si fuera el operando derecho de una comparación con cada expresión de case, y la expresión del switch puede ir precedida de una sentencia de asignación simple, la cual es ejecutada antes de que la expresión sea evaluada.
+La expresión del switch es tratada como si fuera el operando derecho de una comparación con cada expresión de los casos, y la expresión del switch puede ir precedida de una sentencia de asignación simple, la cual es ejecutada antes de que la expresión sea evaluada.
 
 #### Switch de tipo
 
-En un switch de tipo se comparan tipos en lugar de valores. Es similar a un switch de expresión, pero utiliza una expresión con una forma de aserción de tipo (`x.(tipo)`) usando la palabra reservada `type` en lugar de un tipo específico.
+En un switch de tipo se comparan tipos en lugar de valores. Es similar a un switch de expresión, pero utiliza una expresión con una forma de aserción de tipo (`x.(type)`) usando la palabra reservada `type` en lugar de un tipo específico.
 
-Al igual que con las aserciones de tipo, `x` debe ser de tipo interfaz para poder obtener su tipo dinámico. Los cases contienen tipos y deben ser únicos.
+Al igual que con las aserciones de tipo, `x` debe ser de tipo interfaz para poder obtener su tipo dinámico. Los casos contienen tipos y deben ser únicos.
 
-En estos switches, al menos un caso puede usar el valor `nil`. También, tipos de parámetro pueden ser usados en los casos; en este caso, se usa el tipo de la instanciación, y si un tipo se repite, se selecciona el primer case que coincida.
+En estos switches, al menos un caso puede usar el valor `nil`. También, tipos de parámetro pueden ser usados en los casos; en este caso, se usa el tipo de la instanciación, y si un tipo se repite, se selecciona el primer `case` que coincida.
 
 ### Sentencias for
 
@@ -2169,7 +2168,7 @@ La sentencia `go` inicia la ejecución de una llamada a una función de forma co
 
 La expresión debe ser una llamada a una función o a un método y no puede estar entre paréntesis. Las llamadas a funciones integradas están restringidas a sentencias de expresiones únicamente.
 
-La función y sus argumentos son evaluados inmediatamente en la rutina go actual, pero, a diferencia de una llamada regular, el programa no espera a que la función actual termine para continuar su ejecución. El planificador de Go gestiona cuándo iniciar la ejecución de la nueva rutina go. Cuando la función puesta en una nuevo rutina go termina de ejecutarse, la rutina go en la que se puso también finaliza, y si la función tiene valores de retorno, estos son descartados.
+La función y sus argumentos son evaluados inmediatamente en la rutina go actual, pero, a diferencia de una llamada regular, el programa no espera a que la función actual termine para continuar su ejecución. El planificador de Go gestiona cuándo iniciar la ejecución de la nueva rutina go. Cuando la función puesta en una nueva rutina go termina de ejecutarse, la rutina go en la que se puso también finaliza, y si la función tiene valores de retorno, estos son descartados.
 
 ### Sentencias select
 
@@ -2217,7 +2216,7 @@ De igual forma que la sentencia `break`, puede incluir una etiqueta que correspo
 
 La sentencia `goto` transfiere el control de flujo al punto donde se encuentra la etiqueta especificada, pero esto solo es posible dentro de la misma función.
 
-Es importante entender que la ejecución de `goto` no debe causar que se omita la declaración de alguna variable que esté en el alcance de la etiqueta de destino. En otras palabras, no se puede usar `goto` para saltar la declaración de una variable si esa variable sería visible en el punto de destino.
+Es importante entender que la ejecución de `goto` no debe provocar que se omita la declaración de alguna variable que esté en el alcance de la etiqueta de destino. En otras palabras, no se puede usar `goto` para saltar la declaración de una variable si esa variable sería visible en el punto de destino.
 
 Además, `goto` no puede transferir control a una etiqueta que esté dentro de un bloque al cual la sentencia `goto` no tiene acceso desde su posición actual.
 
@@ -2265,7 +2264,6 @@ Si el argumento es un tipo de parámetro, todo su conjunto de tipos debe consist
 
 Si el argumento es `nil`, la función no realiza ninguna operación (no-op).
 
-
 ### Close
 
 La función integrada `close` sirve únicamente para canales, e indica que no se enviarán más valores a través de dicho canal. El canal debe permitir operaciones de envío (no puede ser un canal de solo recepción).
@@ -2284,7 +2282,7 @@ Para `real` e `imag`, el argumento debe ser de tipo complejo y el valor retornad
 
 Estas funciones no admiten argumentos de tipo de parámetro.
 
-### Elemininación de elementos de un mapa
+### Eliminación de elementos de un mapa
 
 La función integrada `delete` elimina el elemento correspondiente a la clave especificada dentro de un `map`. La clave debe ser asignable al tipo de clave definido para el mapa.
 
@@ -2298,7 +2296,7 @@ Las funciones integradas `len` y `cap` aceptan argumentos de diferentes tipos y 
 
 Si el argumento es un tipo de parámetro, el uso de la función correspondiente debe ser válido para todos los tipos en su conjunto de tipos, y el resultado corresponde a la longitud o capacidad del valor del tipo concreto utilizado al instanciar dicho tipo de parámetro.
 
-La longitud y capacidad tienen significados específicos según el tipo:
+La longitud y capacidad tienen significados específicos según el tipo:  
 **Longitud (`len`):**  
 - **String:** número de bytes en la representación UTF-8 del string
 - **Arreglo:** número de elementos en el arreglo (fijo en tiempo de compilación)
@@ -2308,14 +2306,14 @@ La longitud y capacidad tienen significados específicos según el tipo:
 
 **Capacidad (`cap`):**
 - **Arreglo:** número de elementos en el arreglo (igual que `len` para arreglos)
-- **slice:** número máximo de elementos que puede contener el arreglo subyacente desde la posición actual
+- **Slice:** número máximo de elementos que puede contener el arreglo subyacente desde la posición actual
 - **Canal:** capacidad máxima del buffer del canal
 
 Cuando los argumentos son constantes evaluables en tiempo de compilación, el resultado también es una constante y puede ser optimizado por el compilador.
 
 ### Crear mapas, slices y canales
 
-La función integrada `make` toma un tipo de slice, mapa, canal o tipo de parámetro, opcionalmente seguido por argumentos que especifican propiedades del objeto a crear. Esta función retorna un valor completamente inicializado del tipo especificado, donde la memoria subyacente es inicializada apropiadamente (valores cero).
+La función integrada `make` toma un tipo slice, mapa, canal o tipo de parámetro, opcionalmente seguido por argumentos que especifican propiedades del objeto a crear. Esta función retorna un valor completamente inicializado del tipo especificado, donde la memoria subyacente es inicializada apropiadamente (valores cero).
 
 **Slice:**  
 - `make([]T, n)`: slice de tipo `[]T` con longitud `n` y capacidad `n`
@@ -2381,7 +2379,7 @@ Es importante entender que estas funciones operan a un nivel más bajo que `fmt.
 
 ## Paquetes
 
-Los programas de Go se construyen enlazando varios paquetes que trabajan en conjunto para formar un programa ejecutable. Un paquete se construye a partir de uno o más archivos de código fuente que juntos declaran constantes, variables, tipos, funciones y otros elementos de Go. Estos elementos son accesibles en todos los archivos del mismo paquete, y pueden ser accesibles desde otros paquetes si son exportados (comienzan con mayúscula).
+Los programas de Go se construyen enlazando varios paquetes que trabajan en conjunto para formar un programa ejecutable o librería. Un paquete se construye a partir de uno o más archivos de código fuente que juntos declaran constantes, variables, tipos, funciones y otros elementos de Go. Estos elementos son accesibles en todos los archivos del mismo paquete, y pueden ser accesibles desde otros paquetes si son exportados (comienzan con mayúscula).
 
 ### Optimización de archivos fuente
 
@@ -2398,9 +2396,9 @@ Un conjunto de archivos que comparten el mismo nombre de paquete forman la imple
 
 ### Declaraciones de importación
 
-Una declaración `import` establece que el archivo contenedor depende de la funcionalidad del paquete importado, permitiendo el acceso a los identificadores exportados de dicho paquete. Cada declaración `import` especifica un identificador local (nombre del paquete) y una ruta de importación (ubicación del paquete).
+Una declaración `import` establece que el archivo contenedor depende de la funcionalidad del paquete importado, permitiendo el acceso a los identificadores exportados de dicho paquete. Cada declaración `import` especifica un identificador local opcional (nombre del paquete) y una ruta de importación (ubicación del paquete).
 
-El identificador local se usa como identificador calificado para acceder a elementos exportados del paquete importado. Si el identificador se omite, se usa por defecto el nombre declarado en la cláusula `package` del paquete importado. Si se usa el identificador `.`, todos los identificadores exportados del paquete se importan al alcance actual, eliminando la necesidad de identificadores calificados.
+El identificador local opcional se usa como identificador calificado para acceder a elementos exportados del paquete importado. Si el identificador se omite, se usa por defecto el nombre declarado en la cláusula `package` del paquete importado. Si `.` se usa como identificador, todos los identificadores exportados del paquete se importan al alcance actual, eliminando la necesidad de identificadores calificados.
 
 La interpretación de la ruta de importación depende de la implementación, pero típicamente representa una ruta que identifica únicamente al paquete, a menudo relacionada con repositorios de control de versiones.
 
@@ -2462,7 +2460,7 @@ La inicialización del programa completo ocurre en una sola rutina go, de manera
 
 ### Ejecución de un programa
 
-Un programa ejecutable se crea enlazando un paquete especial llamado `main package` con todos los paquetes que importa directa o indirectamente. Este paquete debe:
+Un programa ejecutable se crea enlazando un paquete especial llamado `main` con todos los paquetes que importa directa o indirectamente. Este paquete debe:
 - Tener el nombre de paquete `main`
 - Declarar una función llamada `main` que no reciba parámetros ni retorne valores
 
@@ -2473,7 +2471,7 @@ La ejecución del programa sigue esta secuencia:
 
 ## Errores
 
-El tipo predeclarado `error` es una interfaz que representa la forma convencional de manejar condiciones de error en Go. Cualquier valor que implemente esta interfaz puede representar un error, donde `nil` indica ausencia de error y cualquier valor `no-nil` indica la presencia de un error.
+El tipo predeclarado `error` es una interfaz que representa la forma convencional de manejar condiciones de error en Go. Cualquier tipo que implemente esta interfaz puede representar un error, donde `nil` indica ausencia de error y cualquier valor `no-nil` indica la presencia de un error.
 ```Go
 type error interface {
     Error() string
@@ -2490,13 +2488,13 @@ Los errores que ocurren durante la ejecución del programa, como el uso de un í
 
 Un pánico en tiempo de ejecución es equivalente a llamar explícitamente a la función `panic` con un valor que implementa la interfaz predeclarada `error`. Específicamente, estos pánicos generalmente contienen un valor de tipo que pertenece al paquete `runtime` (como `runtime.Error`) que describe la naturaleza del error de ejecución.
 
-Cuando ocurre un pánico en tiempo de ejecución, el programa sigue la misma secuencia que un pánico explícito: la función actual se detiene, se ejecutan las funciones defer, y el pánico se propaga hacia arriba en la pila de llamadas hasta que es recuperado con `recover` o el programa termine.
+Cuando ocurre un pánico en tiempo de ejecución, el programa sigue la misma secuencia que un pánico explícito: la función actual se detiene, se ejecutan las funciones defer, y el pánico se propaga en la pila de llamadas hasta que es recuperado con `recover` o el programa termine.
 
 ## Consideraciones de sistema
 
 ### Paquete unsafe
 
-El paquete `unsafe` es integrado y reconocido por el compilador. Proporciona facilidades para programación de bajo nivel, incluyendo operaciones que pueden violar el sistema de tipos de Go. Los paquetes que usen `unsafe` requieren gestión manual cuidadosa, ya que pueden no ser portables entre diferentes arquitecturas o versiones del compilador.
+El paquete `unsafe` es integrado y reconocido por el compilador. Proporciona facilidades para programación de bajo nivel, incluyendo operaciones que pueden romper el sistema de tipos de Go. Los paquetes que usen `unsafe` requieren gestión manual cuidadosa, ya que pueden no ser portables entre diferentes arquitecturas o versiones del compilador.
 
 Este paquete ofrece las siguientes interfaces:
 ```Go
@@ -2759,7 +2757,7 @@ for valor := range canal { }          // solo valor (canal)
 
 ### Switch
 
-La sentencia `switch` es más general que en C, sin embargo, las expresiones no deben ser constantes o enteros, y los casos se evalúan de arriba hacia abajo hasta que uno se cumple. Si no hay una expresión, se toma como `true`:
+La sentencia `switch` es más general que en C, pues las expresiones y los casos no necesitan ser constantes ni enteros, y los casos se evalúan de arriba hacia abajo hasta que uno se cumple. Si no hay una expresión, se toma como `true`:
 ```go
 switch variable {
 case "valor1":
@@ -2859,7 +2857,7 @@ for i := 0; i < 3; i++ {
 
 **Otras características:**
 - Un `return` dentro de una función defer no afecta el retorno de la función que la contiene
-- Para manejar panics, usa `recover()` dentro de un `defer`
+- Para manejar pánicos, se debe usar `recover()` dentro de un `defer`
 
 ## Datos
 
@@ -2954,7 +2952,7 @@ v, ok := m["inexistente"]  // v = 0, ok = false
 
 Sin `ok`, ambos casos darían el mismo resultado.
 
-Para borrar una entrada, usa `delete(mapa, clave)`, esto es seguro incluso si la clave no existe.
+Para borrar una entrada, se usa `delete(mapa, clave)`, esto es seguro incluso si la clave no existe.
 
 ### Imprimir
 
@@ -2993,7 +2991,7 @@ const (
 
 **Comportamiento clave:**
 - `iota` comienza en 0 al inicio de cada bloque `const`
-- Dentro del mismo bloque, `iota` incrementa en cada línea
+- Dentro del mismo bloque, `iota` incrementa en cada nueva línea
 - Si una línea no usa `iota` explícitamente, hereda el valor anterior
 - Si múltiples constantes están en la misma línea, todas toman el mismo valor de `iota`
 
@@ -3044,31 +3042,37 @@ func (slice ByteSlice) Append(data []byte) []byte {
     return append(slice, data...)
 }
 ```
-La diferencia principal es si el método puede modificar el original:
+La diferencia principal entre usar receiver por valor o por puntero está en si el método puede modificar el valor original y en qué method set pertenece el método.
 
-**Receiver por valor:** Pueden invocarse en valores y punteros
+**Receiver por valor:**
+- Reciben una copia del valor
+- No pueden modificar el original
+- Pueden invocarse tanto desde valores como desde punteros
+    ```go
+    func (slice ByteSlice) Append(data []byte) []byte {
+        // Recibe una COPIA de ByteSlice
+        // No puede modificar el original
+        // Debe retornar el resultado
+        return append(slice, data...)
+    }
+    ```
 
-```go
-func (slice ByteSlice) Append(data []byte) []byte {
-    // Recibe una COPIA de ByteSlice
-    // No puede modificar el original
-    // Debe retornar el resultado
-    return append(slice, data...)
-}
-```
+**Receiver por puntero:**
+- Reciben la dirección del valor
+- Pueden modificar el valor original
+- Pueden invocarse desde:
+    - un puntero
+    - un valor addressable
 
-**Receiver por puntero:** Solo pueden invocarse en punteros
-```go
-func (p *ByteSlice) Append(data []byte) {
-    // Recibe la DIRECCIÓN de ByteSlice
-    // Puede modificar el original directamente
-    slice := *p
-    slice = append(slice, data...)
-    *p = slice  // Modifica el original
-}
-```
-
-Esto previene un error común, pues si permitiera invocar un método de puntero en un valor, recibiría una copia y las modificaciones se perderían.
+    ```go
+    func (p *ByteSlice) Append(data []byte) {
+        // Recibe la DIRECCIÓN de ByteSlice
+        // Puede modificar el original directamente
+        slice := *p
+        slice = append(slice, data...)
+        *p = slice  // Modifica el original
+    }
+    ```
 
 Si el valor es **addressable** (tiene una dirección de memoria), el compilador convierte automáticamente un método de puntero invocado en un valor. Esto solo ocurre para valores addressables (variables, no resultados de expresiones).
 
@@ -3292,7 +3296,7 @@ o.Increment()  // receiver es Inner, no Outer
 
 La capacidad de embeber en Go introduce un problema, siendo la duplicación de nombres. Cuando hay duplicación de nombres, se aplican dos reglas:
 
-**Regla 1: Ocultamiento por nivel**
+**Regla 1: Ocultamiento por nivel**  
 Un campo o método X en el nivel externo oculta cualquier X en niveles internos:
 ```go
 type Inner struct{ X int }
@@ -3306,7 +3310,7 @@ o.X         // string (nivel externo)
 o.Inner.X   // int (acceso explícito)
 ```
 
-**Regla 2: Conflictos al mismo nivel**
+**Regla 2: Conflictos al mismo nivel**  
 Si el mismo nombre aparece en el mismo nivel de anidación, es un error **solo si se usa**. Si nunca se menciona, está permitido:
 ```go
 type A struct{ X int }
